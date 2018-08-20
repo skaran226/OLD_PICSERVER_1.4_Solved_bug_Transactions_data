@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,8 +12,7 @@ using System.Runtime.InteropServices;
 using System.Management;
 using System.Data.OleDb;
 using System.Drawing;
-using System.Data.SqlClient;
-using System.Data.Sql;
+
 namespace FPS
 {
     public static class CenCom
@@ -76,7 +75,7 @@ namespace FPS
 
         static TimerCallback timerDelegate = new TimerCallback(CheckStatus);
         static System.Threading.Timer stateTimer = new System.Threading.Timer(timerDelegate, null, 1000, 1000);
-        
+
         public struct SYSTEMTIME
         {
             public ushort wYear;
@@ -213,7 +212,7 @@ namespace FPS
                         {
                             DB.CheckForAvailableCassette(i);
                         }
-                        
+
                         //Web.Init();
                         //Web.SendStatus();
 
@@ -449,7 +448,7 @@ namespace FPS
 
                         //if (CardReader.iStatus == 0) { sStatus = sStatus + "Card Reader Offline\n"; }
 
-                        if (PIC_MGR.PICs[iStatusRequest-2].iStatus_CAS == 0) { sStatus = sStatus + "Cash Acceptor Offline\n"; }
+                        if (PIC_MGR.PICs[iStatusRequest - 2].iStatus_CAS == 0) { sStatus = sStatus + "Cash Acceptor Offline\n"; }
                         else if (PIC_MGR.PICs[iStatusRequest - 2].iStatus_CAS == 11) { sStatus = sStatus + "Bill Jammed\n"; }
                         else if (PIC_MGR.PICs[iStatusRequest - 2].iStatus_CAS == 12) { sStatus = sStatus + "Cassette Full\n"; }
                         else if (PIC_MGR.PICs[iStatusRequest - 2].iStatus_CAS == 13) { sStatus = sStatus + "Cassette Removed\n"; }
@@ -566,7 +565,7 @@ namespace FPS
                 if (bCurrentByte >= 0xB1 && bCurrentByte <= (0xB0 + PIC_MGR.PICs.Count) && iCheck == 0)
                 {
                     Debug.WriteLine("bReceive is ON!");
-                    
+
                     iPicNum = bCurrentByte - 0xB0;
                     bReceive = true;
                     iCheck = 0;
@@ -783,7 +782,7 @@ namespace FPS
                             WriteLogData_TX(String.Format("{0:X2}", bbTransmit[i]) + " ");
                         }
                     }
-                 }
+                }
             }
             catch (Exception ex)
             {
@@ -1061,7 +1060,6 @@ namespace FPS
             PortSFC.Parity = Parity.Odd;
             PortSFC.StopBits = StopBits.One;
             PortSFC.DataBits = 7;
-            PortSFC.Close();
             PortSFC.PortName = "COM" + iPortNum;
             PortSFC.Handshake = Handshake.None;
 
@@ -1503,7 +1501,7 @@ namespace FPS
                     }
 
                     iCompleteRequest = iPassNum;
-                   
+
                     //iState = 2;
                 }
                 //return true;
@@ -1621,15 +1619,6 @@ namespace FPS
                     screen1.SetButtonColor(screen1.btCompleted, Color.Yellow);
                     screen1.SetButtonVisible(screen1.btPrint, true);
                     screen1.SetButtonVisible(screen1.btPageUp, true);
-
-
-
-
-
-
-
-                    
-                   
                 }
                 else if (iNewView == 3)
                 {
@@ -1839,23 +1828,9 @@ namespace FPS
             if (iView == 6)
             {
                 GetConfig();
-
-                screen1.SetLabelVisible(screen1.not_avail, false);
-                
                 screen1.SetLabelVisible(screen1.lbl_auto_day_close, true);
                 screen1.SetCheckBoxVisible(screen1.Auto_check, true);
                 screen1.SetButtonVisible(screen1.on_off, true);
-
-                screen1.SetButtonVisible(screen1.view_all_trans, false);
-                screen1.SetButtonVisible(screen1.previous_month, false);
-                screen1.SetButtonVisible(screen1.next_month, false);
-                screen1.SetButtonVisible(screen1.previous_day, false);
-                screen1.SetButtonVisible(screen1.next_day, false);
-
-                screen1.SetLabelVisible(screen1.month_year_lbl, false);
-                screen1.SetLabelVisible(screen1.day_lbl, false);
-                 
-                    
                 screen1.SetButtonVisible(screen1.button1, false);
                 screen1.SetButtonVisible(screen1.button2, false);
                 screen1.SetButtonVisible(screen1.button3, false);
@@ -1897,24 +1872,12 @@ namespace FPS
                 screen1.SetLabelVisible(screen1.lbHeader, true);
                 screen1.SetLabelVisible(screen1.lbFooter, true);
                 screen1.SetLabelVisible(screen1.lbWarning, true);
-                screen1.SetButtonVisible(screen1.btShutDown, true);
-                screen1.SetButtonVisible(screen1.btRestart, true);
             }
             else
             {
-                screen1.SetLabelVisible(screen1.not_avail, false);
                 screen1.SetLabelVisible(screen1.lbl_auto_day_close, false);
                 screen1.SetCheckBoxVisible(screen1.Auto_check, false);
                 screen1.SetButtonVisible(screen1.on_off, false);
-                screen1.SetButtonVisible(screen1.view_all_trans, false);
-                screen1.SetButtonVisible(screen1.previous_month, false);
-                screen1.SetButtonVisible(screen1.next_month, false);
-                screen1.SetButtonVisible(screen1.previous_day, false);
-                screen1.SetButtonVisible(screen1.next_day, false);
-
-                screen1.SetLabelVisible(screen1.month_year_lbl, false);
-                screen1.SetLabelVisible(screen1.day_lbl, false);
-
                 screen1.SetButtonVisible(screen1.button1, true);
                 screen1.SetButtonVisible(screen1.button2, true);
                 screen1.SetButtonVisible(screen1.button3, true);
@@ -1955,8 +1918,6 @@ namespace FPS
                 screen1.SetLabelVisible(screen1.lbHeader, false);
                 screen1.SetLabelVisible(screen1.lbFooter, false);
                 screen1.SetLabelVisible(screen1.lbWarning, false);
-                screen1.SetButtonVisible(screen1.btShutDown, true);
-                screen1.SetButtonVisible(screen1.btRestart, true);
             }
 
             if (iView == 1)
@@ -1983,55 +1944,7 @@ namespace FPS
             }
             else if (iView == 2)
             {
-                screen1.SetButtonVisible(screen1.previous_month, true);
-                screen1.SetButtonVisible(screen1.next_month, true);
-                screen1.SetButtonVisible(screen1.previous_day, true);
-                screen1.SetButtonVisible(screen1.next_day, true);
-
-                screen1.SetLabelVisible(screen1.month_year_lbl, true);
-                screen1.SetLabelVisible(screen1.day_lbl, true);
-
-                screen1.SetButtonVisible(screen1.button1, false);
-                screen1.SetButtonVisible(screen1.button2, false);
-                screen1.SetButtonVisible(screen1.button3, false);
-                screen1.SetButtonVisible(screen1.view_all_trans, true);
-                screen1.SetButtonVisible(screen1.btRestart, false);
-                screen1.SetButtonVisible(screen1.btShutDown, false);
-
-                string day = DateTime.Now.ToString("dd");
-                string month = DateTime.Now.ToString("MM");
-                string year = DateTime.Now.ToString("yyyy");
-
-                month = getMonth(month);
-
-                screen1.month_year_lbl.Text = month + "," + year;
-
-                if (day == "01")
-                {
-                    day = "1";
-                    screen1.SetButtonVisible(screen1.previous_day, false);
-                }
-
-
-                screen1.day_lbl.Text = day;
-
-                if ((screen1.month_year_lbl.Text.ToString().Split(',')[0] == getMonth(DateTime.Now.ToString("MM"))) && (Convert.ToInt32(screen1.day_lbl.Text) == Convert.ToInt32(DateTime.Now.ToString("dd"))))
-                {
-
-                    screen1.SetButtonVisible(screen1.next_month, false);
-                    screen1.SetButtonVisible(screen1.next_day, false);
-
-                }
-
-
-                var dateAndTime = DateTime.Now;
-                int yearint = dateAndTime.Year;
-                int monthint = dateAndTime.Month;
-                int dayint = dateAndTime.Day;
-
-                string dtformat = string.Format("{0}/{1}/{2}", monthint, dayint, yearint);
-               screen1.GetChooseTransations(dtformat);
-                //DB.UpdateCompletedTransView();
+                DB.UpdateCompletedTransView();
             }
             else if (iView == 3)
             {
@@ -2058,76 +1971,6 @@ namespace FPS
                     Display.UpdateButtonText(i + 1, "PIC " + i + " STATUS");
                 }
             }
-        }
-
-        public static string getMonth(string month)
-        {
-            string ret_month = "";
-            if (month == "01" || month == "1")
-            {
-                ret_month = "Jan";
-            }
-
-
-            if (month == "02" || month == "2")
-            {
-                ret_month = "Feb";
-            }
-
-            if (month == "03" || month == "3")
-            {
-                ret_month = "March";
-            }
-
-            if (month == "04" || month == "4")
-            {
-                ret_month = "Apirl";
-
-            }
-
-            if (month == "05" || month == "5")
-            {
-                ret_month = "May";
-            }
-
-            if (month == "06" || month == "6")
-            {
-                ret_month = "June";
-            }
-
-            if (month == "07" || month == "7")
-            {
-                ret_month = "July";
-            }
-
-            if (month == "08" || month == "8")
-            {
-                ret_month = "Aug";
-            }
-
-            if (month == "09" || month == "9")
-            {
-                ret_month = "Sep";
-            }
-
-            if (month == "10")
-            {
-                ret_month = "Oct";
-            }
-
-            if (month == "11")
-            {
-                ret_month = "Nov";
-            }
-
-            if (month == "12")
-            {
-                ret_month = "Dec";
-            }
-
-
-
-            return ret_month;
         }
 
         public static void UpdateButtonText(int iIndex, string sLabel)
@@ -2241,7 +2084,7 @@ namespace FPS
             //        screen1.HideImage(screen1.pictureBox2);
             //        screen1.ShowImage(screen1.pictureBox1);
             //    }
-                
+
             //    CenCom.ImmediateCheck();//check status of printer to know if can print receipt + report updated status of other components
 
             //    screen1.ShowThis();
@@ -2543,7 +2386,7 @@ namespace FPS
 
             //if (iType == 4)
             //{
-                bSend = new byte[] { 0x1B, 0x76 };
+            bSend = new byte[] { 0x1B, 0x76 };
             //}
             //else
             //{
@@ -2560,7 +2403,7 @@ namespace FPS
                 }
                 //if (iType == 4)
                 //{
-                    PortPTR.Write(bSend, 0, 2);
+                PortPTR.Write(bSend, 0, 2);
                 //}
                 //else
                 //{
@@ -2589,7 +2432,7 @@ namespace FPS
 
             //if (iType == 4)
             //{
-                bSend = new byte[] { 0x1B, 0x21, 0x00, 0x1D, 0x4C, 0x30, 0x00 };
+            bSend = new byte[] { 0x1B, 0x21, 0x00, 0x1D, 0x4C, 0x30, 0x00 };
             //}
             //else
             //{
@@ -2605,7 +2448,7 @@ namespace FPS
 
                 //if (iType == 4)
                 //{
-                    PortPTR.Write(bSend, 0, 7);
+                PortPTR.Write(bSend, 0, 7);
                 //}
                 //else
                 //{
@@ -2944,23 +2787,23 @@ namespace FPS
             //    Debug.WriteLine("LOCK PIC LOCK!!!");
             //    bLock = true;
 
-                tsWait = DateTime.Now - dtLastRequest;
-                Debug.WriteLine("TIME: " + tsWait);
+            tsWait = DateTime.Now - dtLastRequest;
+            Debug.WriteLine("TIME: " + tsWait);
 
-                if (tsWait > tsLimit)//don't go too fast...
+            if (tsWait > tsLimit)//don't go too fast...
+            {
+                dtLastRequest = DateTime.Now;
+
+                Debug.WriteLine("HALLA:::" + iCurrentPIC + PICs.Count);
+
+                if (PICs.Count > 0)
                 {
-                    dtLastRequest = DateTime.Now;
-
-                    Debug.WriteLine("HALLA:::" + iCurrentPIC + PICs.Count);
-
-                    if (PICs.Count > 0)
-                    {
-                        PICs[iCurrentPIC - 1].SendRequest();
-                    }
-
-                    GotoNextPIC();
+                    PICs[iCurrentPIC - 1].SendRequest();
                 }
-            
+
+                GotoNextPIC();
+            }
+
 
             //}
 
@@ -2973,11 +2816,11 @@ namespace FPS
             //{
             //    //Get Status
 
-                
+
             //}
             //else if (iCurrentState == 1)
             //{
-                
+
             //}
             //else if (iCurrentState == 2)
             //{
@@ -3091,86 +2934,86 @@ namespace FPS
 
         public void ProcessMessage(string sPassReceive)
         {
-                Debug.WriteLine("PROCESS PIC MESSAGE: " + sPassReceive);
+            Debug.WriteLine("PROCESS PIC MESSAGE: " + sPassReceive);
 
-                int i;
-                int iCmd = 0;
+            int i;
+            int iCmd = 0;
 
-                Debug.Write("PROCESS MSG: ");
-                foreach (char c in sPassReceive)
+            Debug.Write("PROCESS MSG: ");
+            foreach (char c in sPassReceive)
+            {
+                Debug.Write(String.Format("{0:X2}", (byte)c) + " ");
+            }
+
+            if (iTranState == 0 && SFC.iStatus == 1 && RS485.iStatus == 1)
+            {
+                if (SFC.iStatus == 1 && RS485.iStatus == 1 && iStatus_EPP == 1 && iStatus_CAS == 1)
                 {
-                    Debug.Write(String.Format("{0:X2}", (byte)c) + " ");
+                    GotoMain();
                 }
-            
-                if (iTranState == 0 && SFC.iStatus == 1 && RS485.iStatus == 1)
+                else
                 {
-                    if (SFC.iStatus == 1 && RS485.iStatus == 1 && iStatus_EPP == 1 && iStatus_CAS == 1)
+                    GetStatusUpdate(0);
+                }
+            }
+
+            i = 1;
+            while (i < (sPassReceive.Length - 4))
+            {
+                iCmd = sPassReceive[i];
+
+                try
+                {
+                    if (iCmd == 0x01)
                     {
-                        GotoMain();
+                        StartTransaction(sPassReceive[i + 1], sPassReceive[i + 2]);
+                        i = i + 3;
+                    }
+                    else if (iCmd == 0x03)//Numeric Entry
+                    {
+                        //
+                    }
+                    else if (iCmd == 0x05)//Key Press
+                    {
+                        ProcessKey(sPassReceive[i + 1]);
+                        i = i + 2;
+                    }
+                    else if (iCmd == 0x09)//New Bill
+                    {
+                        SetBillValue(sPassReceive[i + 1]);
+                        i = i + 2;
+                    }
+                    else if (iCmd == 0x11)//EPP Status
+                    {
+                        UpdateStatus_EPP(sPassReceive[i + 1]);
+                        i = i + 2;
+                    }
+                    else if (iCmd == 0x13)//CR Status
+                    {
+                        UpdateStatus_CDR(sPassReceive[i + 1]);
+                        i = i + 2;
+                    }
+                    else if (iCmd == 0x14)//CA Status
+                    {
+                        UpdateStatus_CAS(sPassReceive[i + 1]);
+                        i = i + 2;
+                    }
+                    else if (iCmd == 0x15)//PTR Status
+                    {
+                        UpdateStatus_PTR(sPassReceive[i + 1]);
+                        i = i + 2;
                     }
                     else
-                    {
-                        GetStatusUpdate(0);
-                    }
-                }
-
-                i = 1;
-                while (i < (sPassReceive.Length - 4))
-                {
-                    iCmd = sPassReceive[i];
-
-                    try
-                    {
-                        if (iCmd == 0x01)
-                        {
-                            StartTransaction(sPassReceive[i+1], sPassReceive[i+2]);
-                            i = i + 3;
-                        }
-                        else if (iCmd == 0x03)//Numeric Entry
-                        {
-                            //
-                        }
-                        else if (iCmd == 0x05)//Key Press
-                        {
-                            ProcessKey(sPassReceive[i + 1]);
-                            i = i + 2;
-                        }
-                        else if (iCmd == 0x09)//New Bill
-                        {
-                            SetBillValue(sPassReceive[i + 1]);
-                            i = i + 2;
-                        }
-                        else if (iCmd == 0x11)//EPP Status
-                        {
-                            UpdateStatus_EPP(sPassReceive[i + 1]);
-                            i = i + 2;
-                        }
-                        else if (iCmd == 0x13)//CR Status
-                        {
-                            UpdateStatus_CDR(sPassReceive[i + 1]);
-                            i = i + 2;
-                        }
-                        else if (iCmd == 0x14)//CA Status
-                        {
-                            UpdateStatus_CAS(sPassReceive[i + 1]);
-                            i = i + 2;
-                        }
-                        else if (iCmd == 0x15)//PTR Status
-                        {
-                            UpdateStatus_PTR(sPassReceive[i + 1]);
-                            i = i + 2;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    catch
                     {
                         break;
                     }
                 }
-            
+                catch
+                {
+                    break;
+                }
+            }
+
         }
 
         public void SendRequest()
@@ -3346,7 +3189,8 @@ namespace FPS
 
         void UpdateStatus_CAS(int iPassNewState)
         {
-           if (iStatus_CAS != iPassNewState) {//PIC should not update if this is not true
+            if (iStatus_CAS != iPassNewState)
+            {//PIC should not update if this is not true
 
                 iStackAttempt = 0;
                 iReturnAttempt = 0;
@@ -3577,7 +3421,7 @@ namespace FPS
             {
                 PUMP_MGR.PUMPs[iPump - 1].iPIC = iPIC;
                 Reserve();
-                
+
             }
             else if (iTranType == 2)
             {
@@ -3594,7 +3438,7 @@ namespace FPS
             if (PUMP_MGR.PUMPs[iPump - 1].Reserve())
             {
                 Debug.WriteLine("PUMP " + iPump + " RESERVED");
-                
+
                 ShowPaymentPrompt();
             }
             else
@@ -3648,7 +3492,7 @@ namespace FPS
         {
             //if (PICs[iCurrentPIC - 1].iPump == iNum)
             //{
-                PUMP_MGR.PUMPs[iPump - 1].AuthorizationRequest(iPassAmount);
+            PUMP_MGR.PUMPs[iPump - 1].AuthorizationRequest(iPassAmount);
             //}
             //else
             //{
@@ -3660,16 +3504,16 @@ namespace FPS
         {
             //if (PICs[iCurrentPIC - 1].iPump == iNum)
             //{
-                if (PUMP_MGR.PUMPs[iPump - 1].bAuthorized)
-                {
-                    Debug.WriteLine("PUMP " + iPump + " AUTHORIZED");
-                    GotoFinal(true);
-                }
-                else
-                {
-                    Debug.WriteLine("PUMP " + iPump + " NOT AUTHORIZED");
-                    GotoFinal(false);
-                }
+            if (PUMP_MGR.PUMPs[iPump - 1].bAuthorized)
+            {
+                Debug.WriteLine("PUMP " + iPump + " AUTHORIZED");
+                GotoFinal(true);
+            }
+            else
+            {
+                Debug.WriteLine("PUMP " + iPump + " NOT AUTHORIZED");
+                GotoFinal(false);
+            }
             //}
             //else
             //{
@@ -3686,7 +3530,7 @@ namespace FPS
         public static List<int> lAuthorize = new List<int>();
         public static List<int> lGetSalesReport = new List<int>();
         public static List<int> lComplete = new List<int>();
-        
+
         static int iPump = 0;
         static int iIndex = 0;
 
@@ -3723,45 +3567,45 @@ namespace FPS
             //}
             //if (CenCom.bStartup == false)
             //{
-                tsWait = DateTime.Now - dtLastRequest;
-                Debug.WriteLine("TIME: " + tsWait);
+            tsWait = DateTime.Now - dtLastRequest;
+            Debug.WriteLine("TIME: " + tsWait);
 
-                //if (tsWait > tsLimit)
-                //{
-                //    bLock = false;
-                //}
+            //if (tsWait > tsLimit)
+            //{
+            //    bLock = false;
+            //}
 
-                if (tsWait > tsLimit)//don't go too fast...
+            if (tsWait > tsLimit)//don't go too fast...
+            {
+                //if (SFC.iStatus == 0 && bLock) { bLock = false; };
+                //Debug.WriteLine("HI" + bLock);
+                if (!bLock || SFC.iStatus == 0)
                 {
-                    //if (SFC.iStatus == 0 && bLock) { bLock = false; };
-                    //Debug.WriteLine("HI" + bLock);
-                    if (!bLock || SFC.iStatus == 0)
-                    {
-                        bLock = true;
-                        dtLastRequest = DateTime.Now;
+                    bLock = true;
+                    dtLastRequest = DateTime.Now;
 
-                        if (lAuthorize.Count == 0 && lGetSalesReport.Count == 0 && lComplete.Count == 0)
-                        {
-                            SFC.GetState(0);
-                        }
-                        else if (lAuthorize.Count > 0)
-                        {
-                            iPump = lAuthorize[0];
-                            SFC.Authorize(iPump, PUMP_MGR.PUMPs[iPump - 1].iPurchased);
-                        }
-                        else if (lGetSalesReport.Count > 0)
-                        {
-                            iPump = lGetSalesReport[0];
-                            SFC.GetSalesReport(iPump);
-                        }
-                        else if (lComplete.Count > 0)
-                        {
-                            iPump = lComplete[0];
-                            SFC.CompleteSale(iPump);
-                        }
+                    if (lAuthorize.Count == 0 && lGetSalesReport.Count == 0 && lComplete.Count == 0)
+                    {
+                        SFC.GetState(0);
+                    }
+                    else if (lAuthorize.Count > 0)
+                    {
+                        iPump = lAuthorize[0];
+                        SFC.Authorize(iPump, PUMP_MGR.PUMPs[iPump - 1].iPurchased);
+                    }
+                    else if (lGetSalesReport.Count > 0)
+                    {
+                        iPump = lGetSalesReport[0];
+                        SFC.GetSalesReport(iPump);
+                    }
+                    else if (lComplete.Count > 0)
+                    {
+                        iPump = lComplete[0];
+                        SFC.CompleteSale(iPump);
                     }
                 }
             }
+        }
         //}
     }
 
@@ -3916,7 +3760,7 @@ namespace FPS
             //        bReserved = true;
             //        //sTranTime = Convert.ToString(DateTime.Now);
             //        DateTime dtNow= DateTime.Now;
-                    
+
             //        PUMP_MGR.PUMPs[iPump - 1].dtReserved = dtNow;
             //        TRAN_MGR.Create(iPIC, iPump, dtNow);
 
@@ -3959,7 +3803,7 @@ namespace FPS
             {
                 PUMP_MGR.bLock = false;
             }
-            
+
         }
 
         //public void ReservationResponse(int iState)
@@ -4013,7 +3857,7 @@ namespace FPS
         public void GetReportResponse(string sPassGrade, string sPassVolume, string sPassBought, string sPassPrice)
         {
             Debug.WriteLine("PUMP REPORT RESPONSE - PUMP = " + iPump + " REPORT LIST COUNT = " + PUMP_MGR.lGetSalesReport.Count + " INDEX 0 PUMP = " + PUMP_MGR.lGetSalesReport[0]);
-            
+
             if (PUMP_MGR.lGetSalesReport.Contains(iPump))
             {
                 PUMP_MGR.lGetSalesReport.Remove(iPump);
@@ -4186,7 +4030,7 @@ namespace FPS
 
             Debug.WriteLine("TRAN REPORT RESPONSE " + TRANs.Count);
             Debug.WriteLine("TRAN ID = " + sPassId);
-                    
+
             if (TRANs.Count > 0)
             {
                 for (i = 0; i < TRANs.Count; i++)
@@ -4362,7 +4206,7 @@ namespace FPS
             this.dPrice = Convert.ToDouble(sPrice);
             this.bCompleted = true;
             this.dtCompleted = DateTime.Now;
-            this.sCompletedTime = dtCompleted.ToString("yyMMddHHmmss");// change formate
+            this.sCompletedTime = dtCompleted.ToString("yyMMddHHmmss");
             this.sShowTime = dtCompleted.ToString();
 
             dVolume = dVolume / 1000;
@@ -4411,7 +4255,7 @@ namespace FPS
             DB.CreateTransaction(sTranId, sReservedTime, iPIC, iPump);
             DB.AuthorizeTransaction(sTranId, Convert.ToString(iPassDeposit), "");
             DB.CompleteTransaction(sTranId, "0", "0", "0", sGrade, sChange, sCompletedTime, sShowTime);
-            
+
             if (Display.iView == 1)
             {
                 Display.UpdateButtonText(iPosition, "PUMP: " + iPump + " @ " + sShowTime + "\nPAID: $" + Convert.ToString(iPassDeposit) + "  CHANGE: $" + sChange);
@@ -4430,7 +4274,7 @@ namespace FPS
 
                 sReceipt = sReceipt + Printer.sHeader;
                 sReceipt = sReceipt + "\n\n\n";
-                
+
                 sReceipt = sReceipt + "Pump: " + iPump + "\n";
                 sReceipt = sReceipt + "Terminal: " + iPIC + "\n\n";
 
@@ -4445,7 +4289,7 @@ namespace FPS
                 sReceipt = sReceipt + "                       TOTAL        -" + sChange + "\n";
                 sReceipt = sReceipt + "                        CASH        -" + sChange + "\n\n";
 
-                sReceipt = sReceipt + "TRAN# " + sTranId + "\n"; 
+                sReceipt = sReceipt + "TRAN# " + sTranId + "\n";
                 sReceipt = sReceipt + sShowTime + "\n\n";
                 sReceipt = sReceipt + Printer.sFooter + "\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
@@ -4471,7 +4315,7 @@ namespace FPS
 
             sReceipt = sReceipt + Printer.sHeader;
             sReceipt = sReceipt + "\n\n\n";
-            
+
             sReceipt = sReceipt + " " + "Pump: " + iPump + "\n";
             sReceipt = sReceipt + " " + "Terminal: " + iPIC + "\n\n";
 
@@ -4486,7 +4330,7 @@ namespace FPS
             sReceipt = sReceipt + String.Format(" {0,-8}{1,8}{2,8}\n", "", "TOTAL", "-" + sChange);
             sReceipt = sReceipt + String.Format(" {0,-8}{1,8}{2,8}\n\n", "", "CASH", "-" + sChange);
 
-            sReceipt = sReceipt + " TRAN# " + sTranId + "\n"; 
+            sReceipt = sReceipt + " TRAN# " + sTranId + "\n";
             sReceipt = sReceipt + " " + sShowTime + "\n\n";
             sReceipt = sReceipt + Printer.sFooter + "\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
@@ -4499,30 +4343,29 @@ namespace FPS
 
     public static class DB
     {
-
-        delegate void SetLabelTextCallback(Label label_id, string id);
         public static int iPage = 1;
 
         static List<EodStruct> lEodReports = new List<EodStruct>();
         static List<CashStruct> lCashReports = new List<CashStruct>();
         public static List<TransStruct> lCompletedTrans = new List<TransStruct>();
 
-       public static bool IsGenerateEOD_report=false;
-       //public static bool IsGeneratePIC_Cash_report = false;
+        public static bool IsGenerateEOD_report = false;
+        //public static bool IsGeneratePIC_Cash_report = false;
 
-       static TimerCallback timer_GenerateEOD_report = new TimerCallback(Auto_GenerateEodReport);
-       static System.Threading.Timer GenerateEOD_report_stateTimer = new System.Threading.Timer(timer_GenerateEOD_report, null, 990, 990);
+        static TimerCallback timer_GenerateEOD_report = new TimerCallback(Auto_GenerateEodReport);
+        static System.Threading.Timer GenerateEOD_report_stateTimer = new System.Threading.Timer(timer_GenerateEOD_report, null, 990, 990);
 
-      /* static TimerCallback timer_GGeneratePIC_Cash_report = new TimerCallback(Auto_GeneratePIC_Cash_Report);
-       static System.Threading.Timer GeneratePIC_Cash_report_stateTimer = new System.Threading.Timer(timer_GGeneratePIC_Cash_report, null, 980, 980);*/
+        /* static TimerCallback timer_GGeneratePIC_Cash_report = new TimerCallback(Auto_GeneratePIC_Cash_Report);
+         static System.Threading.Timer GeneratePIC_Cash_report_stateTimer = new System.Threading.Timer(timer_GGeneratePIC_Cash_report, null, 980, 980);*/
+        //public static Transactions_View tb = new Transactions_View();
 
-
-       private static void Auto_GenerateEodReport(Object stateInfo)
+        private static void Auto_GenerateEodReport(Object stateInfo)
         {
 
-            try {
+            try
+            {
 
-                Debug.WriteLine("IsGenerateEOD_report :" + IsGenerateEOD_report );
+                Debug.WriteLine("IsGenerateEOD_report :" + IsGenerateEOD_report);
                 string currentTime = DateTime.Now.ToString("hh:mm:ss tt");
                 string SetTime = SetDataTime.hours + ":" + SetDataTime.minutes + ":01" + " " + SetDataTime.interval;
 
@@ -4531,7 +4374,7 @@ namespace FPS
                 {
 
                     IsGenerateEOD_report = true; //auto generate report
-                   // IsGeneratePIC_Cash_report = true; //auto generate report
+                    // IsGeneratePIC_Cash_report = true; //auto generate report
 
 
 
@@ -4539,10 +4382,11 @@ namespace FPS
                     Debug.WriteLine("IsGenerateEOD_report :" + IsGenerateEOD_report);
 
                 }
-                else {
+                else
+                {
 
                     IsGenerateEOD_report = false; //auto generate report off
-                   // IsGeneratePIC_Cash_report = false; //auto generate report off
+                    // IsGeneratePIC_Cash_report = false; //auto generate report off
                 }
 
 
@@ -4569,95 +4413,27 @@ namespace FPS
 
                     myEodStruct = GetEodStartTime();
                     Debug.WriteLine("sFromTime:" + myEodStruct.sFromTime + " sShowTimeStart:" + myEodStruct.sShowTimeStart);
-                    SQL_SERVER.Set_Sql_Server_Conn();
+
 
 
                     sQuery = @"INSERT INTO TRANSACTIONS_REPORT (REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END) VALUES('" + sReportTime + "', '" + myEodStruct.sFromTime + "', '" + myEodStruct.sShowTimeStart + "', '" + sShowTimeEnd + "')";
                     Debug.WriteLine(sQuery);
-                    SQL_SERVER.Open_Sql_Server_Conn();
-                    dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
-                    dbCmd.ExecuteNonQuery();
-                    SQL_SERVER.Close_Sql_Sever_Conn();
+
+                    DB.ExecuteNonQuery(sQuery);
 
                     UpdateEodView();
 
-                    PrintEodReport(0);
+                    DB.PrintEodReport(0);
 
                 }
             }
-           catch(Exception exe){
+            catch (Exception exe)
+            {
 
-               Debug.WriteLine("Exception :"+exe);
-           
-           }
+                Debug.WriteLine("Exception :" + exe);
+
+            }
         }
-
-     /*  private static void Auto_GeneratePIC_Cash_Report(Object stateInfo)
-        {
-
-            string currentTime = DateTime.Now.ToString("hh:mm:ss tt");
-            string SetTime = SetDataTime.hours + ":" + SetDataTime.minutes + ":01" +" "+ SetDataTime.interval;
-            Debug.WriteLine("currentTime :" + currentTime + " SetTime:" + SetTime);
-            if (SetTime == currentTime)
-            {
-
-                IsGenerateEOD_report = true; //auto generate report
-                IsGeneratePIC_Cash_report = true; //auto generate report
-
-                Debug.WriteLine("IsGenerateEOD_report :" + IsGenerateEOD_report + "IsGeneratePIC_Cash_report: " + IsGeneratePIC_Cash_report);
-
-            }
-            else
-            {
-
-                IsGenerateEOD_report = false; //auto generate report off
-                IsGeneratePIC_Cash_report = false; //auto generate report off
-            }
-
-            if (IsGeneratePIC_Cash_report) {
-
-
-                try
-                {
-                    string sQuery;
-                    string sReportTime;
-                    string sFromTime;
-                    string sShowTimeStart;
-                    string sShowTimeEnd;
-                    CashStruct myCashStruct;
-                    DateTime dtNow;
-
-                    Debug.WriteLine("GENERATE CASH REPORT");
-
-                    dtNow = DateTime.Now;
-                    sReportTime = dtNow.ToString("yyMMddHHmmss");
-                    sShowTimeEnd = dtNow.ToString();
-                    myCashStruct = GetCashStartTime();
-                    sFromTime = myCashStruct.sFromTime;
-                    sShowTimeStart = myCashStruct.sShowTimeStart;
-
-                    SqlCommand cmd;
-                    SQL_SERVER.Set_Sql_Server_Conn();
-                    SQL_SERVER.Open_Sql_Server_Conn();
-
-                    sQuery = @"INSERT INTO CASSETTES_REPORT (REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END) VALUES('" + sReportTime + "', '" + sFromTime + "', '" + sShowTimeStart + "', '" + sShowTimeEnd + "')";
-                    Debug.WriteLine(sQuery);
-                    cmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
-                    cmd.Connection = SQL_SERVER.Return_Conn();
-                    cmd.ExecuteNonQuery();
-
-                    SQL_SERVER.Close_Sql_Sever_Conn();
-                    UpdateCashView();
-            
-                }
-                catch (Exception exe) {
-
-                    Debug.WriteLine("Exception :" + exe);
-                
-                }
-            }
-        }*/
-         
 
         struct EodStruct
         {
@@ -4689,12 +4465,9 @@ namespace FPS
             public string sVolume;
         }
 
-        //static OleDbConnection Conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:/DB/MainDB.mdb;Mode=Read|Write");
-        //static SqlConnection Conn = new SqlConnection("Data Source=LAPTOP-EMJVR3G8;Initial Catalog=master;Integrated Security=True;MultipleActiveResultSets=true");
+        static OleDbConnection Conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:/DB/MainDB.mdb;Mode=Read|Write");
 
-       
-        
-        /*public static SqlConnection OpenConn()
+        public static OleDbConnection OpenConn()
         {
             if (Conn.State == System.Data.ConnectionState.Closed)
             {
@@ -4715,7 +4488,7 @@ namespace FPS
         {
             try
             {
-                SqlCommand cmd = new SqlCommand(sPassQuery,OpenConn());
+                OleDbCommand cmd = new OleDbCommand(sPassQuery, OpenConn());
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -4726,42 +4499,41 @@ namespace FPS
                 //ErrorLogEvents(ex.ToString());
             }
             //CloseConn();
-        }*/
+        }
 
         public static void CreateTransaction(string sPassID, string sPassTime, int iPassPicNum, int iPassPumpNum)
         {
             string sQuery = @"INSERT INTO TRANSACTIONS (TRAN_ID, PIC, PUMP, RESERVED_TIME) Values('" + sPassID + "', " + iPassPicNum + ", " + iPassPumpNum + ", '" + sPassTime + "')";
-            Debug.WriteLine(sQuery); 
-            //ExecuteNonQuery(sQuery);
-            SQL_SERVER.ExecuteNonQuery(sQuery);
+            Debug.WriteLine(sQuery);
+            ExecuteNonQuery(sQuery);
         }
 
         public static void AuthorizeTransaction(string sPassID, string sPassAmount, string sPassTime)
         {
             string sQuery = @"UPDATE TRANSACTIONS SET AUTHORIZED_TIME = '" + sPassTime + "', DEPOSIT = '" + sPassAmount + "' WHERE TRAN_ID LIKE '" + sPassID + "'";
             Debug.WriteLine(sQuery);
-            SQL_SERVER.ExecuteNonQuery(sQuery);
+            ExecuteNonQuery(sQuery);
         }
 
         public static void CompleteTransaction(string sPassID, string sPassPurchased, string sPassPrice, string sPassVolume, string sPassGrade, string sPassChange, string sPassCompletedTime, string sPassShowTime)
         {
             string sQuery = @"UPDATE TRANSACTIONS SET PURCHASE = " + sPassPurchased + ", PRICE = '" + sPassPrice + "', VOLUME = " + sPassVolume + ", GRADE = '" + sPassGrade + "', CHANGE = '" + sPassChange + "', COMPLETED_TIME = '" + sPassCompletedTime + "', SHOW_TIME = '" + sPassShowTime + "' WHERE TRAN_ID LIKE '" + sPassID + "'";
             Debug.WriteLine(sQuery);
-            SQL_SERVER.ExecuteNonQuery(sQuery);
+            ExecuteNonQuery(sQuery);
         }
 
         public static void NewCassette(int iPassPicNum)
         {
             string sQuery = @"INSERT INTO CASSETTES (PIC, BILLS, TOTAL) Values(" + iPassPicNum + ", 0, 0)";
             Debug.WriteLine(sQuery);
-            SQL_SERVER.ExecuteNonQuery(sQuery);
+            ExecuteNonQuery(sQuery);
         }
 
         public static void AddToCassette(int iPassPicNum, int iPassBillValue)
         {
             string sQuery = @"UPDATE CASSETTES SET BILLS = BILLS + " + 1 + ", TOTAL = TOTAL + " + iPassBillValue + " WHERE PIC = " + iPassPicNum + " AND PULLED = NO";
             Debug.WriteLine(sQuery);
-            SQL_SERVER.ExecuteNonQuery(sQuery);
+            ExecuteNonQuery(sQuery);
         }
 
         public static void PullCassette(int iPassPicNum)
@@ -4769,7 +4541,7 @@ namespace FPS
             DateTime dtNow = DateTime.Now;
             string sQuery = @"UPDATE CASSETTES SET PULLED_TIME = '" + dtNow.ToString("yyMMddHHmmss") + "', SHOW_TIME = '" + dtNow.ToString() + "', PULLED = YES WHERE PIC = " + iPassPicNum + " AND PULLED = NO";
             Debug.WriteLine(sQuery);
-            SQL_SERVER.ExecuteNonQuery(sQuery);
+            ExecuteNonQuery(sQuery);
 
             NewCassette(iPassPicNum);
         }
@@ -4779,12 +4551,11 @@ namespace FPS
             string sQuery;
             OleDbCommand dbCmd;
             OleDbDataReader drRecordSet;
-            SQL_SERVER.Set_Sql_Server_Conn();
-            SQL_SERVER.Open_Sql_Server_Conn();
+
             sQuery = "SELECT PIC FROM CASSETTES WHERE PIC = " + iPassPicNum + " AND PULLED = NO";
             Debug.WriteLine("CHECK FOR AVAILABLE CASSETTE");
 
-            dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+            dbCmd = new OleDbCommand(sQuery, OpenConn());
             drRecordSet = dbCmd.ExecuteReader();
 
             Debug.WriteLine(sQuery);
@@ -4807,12 +4578,11 @@ namespace FPS
             string sQuery;
             OleDbCommand dbCmd;
             OleDbDataReader drRecordSet;
-            SQL_SERVER.Set_Sql_Server_Conn();
-            SQL_SERVER.Open_Sql_Server_Conn();
+
             sQuery = "SELECT PIC FROM CASSETTES WHERE PIC = " + iPassPicNum + " AND PULLED = NO";
             Debug.WriteLine("CHECK FOR AVAILABLE CASSETTE");
 
-            dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+            dbCmd = new OleDbCommand(sQuery, OpenConn());
             drRecordSet = dbCmd.ExecuteReader();
 
             Debug.WriteLine(sQuery);
@@ -4833,144 +4603,102 @@ namespace FPS
 
         public static void UpdateEodView()
         {
-            try
+            int iIndex, iCount;
+            string sQuery;
+            OleDbCommand dbCmd;
+            OleDbDataReader drRecordSet;
+            EodStruct myEodStruct;
+
+            Debug.WriteLine("UPDATE EOD VIEW");
+
+            sQuery = "SELECT REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END FROM TRANSACTIONS_REPORT ORDER BY REPORT_TIME DESC";
+            dbCmd = new OleDbCommand(sQuery, OpenConn());
+            drRecordSet = dbCmd.ExecuteReader();
+
+            Debug.WriteLine(sQuery);
+            Debug.WriteLine(drRecordSet.HasRows);
+
+            iCount = 0;
+            lEodReports.Clear();
+            while (drRecordSet.Read())
             {
+                myEodStruct.sReportTime = drRecordSet[0].ToString();
+                myEodStruct.sFromTime = drRecordSet[1].ToString();
+                myEodStruct.sShowTimeStart = drRecordSet[2].ToString();
+                myEodStruct.sShowTimeEnd = drRecordSet[3].ToString();
 
-                int iIndex, iCount;
-                string sQuery;
-                OleDbCommand dbCmd;
-                 OleDbDataReader drRecordSet;
-               /* SqlCommand dbCmd;
-                SqlDataReader drRecordSet;*/
-                EodStruct myEodStruct;
-                SQL_SERVER.Set_Sql_Server_Conn();
-
-
-                Debug.WriteLine("UPDATE EOD VIEW");
-
-                sQuery = "SELECT REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END FROM TRANSACTIONS_REPORT ORDER BY REPORT_TIME DESC";
-                SQL_SERVER.Open_Sql_Server_Conn();
-                dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
-                // SQL_SERVER.Open_Sql_Server_Conn();
-                // dbCmd.Connection = SQL_SERVER.Return_Conn();
-                drRecordSet = dbCmd.ExecuteReader();
-
-                Debug.WriteLine(sQuery);
-                Debug.WriteLine(drRecordSet.HasRows);
-
-                iCount = 0;
-                lEodReports.Clear();
-                while (drRecordSet.Read())
-                {
-                    myEodStruct.sReportTime = drRecordSet[0].ToString();
-                    myEodStruct.sFromTime = drRecordSet[1].ToString();
-                    myEodStruct.sShowTimeStart = drRecordSet[2].ToString();
-                    myEodStruct.sShowTimeEnd = drRecordSet[3].ToString();
-
-                    lEodReports.Add(myEodStruct);
-                    Debug.WriteLine(lEodReports[iCount].sFromTime + "-" + lEodReports[iCount].sReportTime);
-                    iCount++;
-                }
-
-                for (iIndex = 0; iIndex <= 10; iIndex++)
-                {
-                    if (iIndex < iCount)
-                    {
-                        Display.UpdateButtonText(iIndex + 1, "REPORT TIME: " + lEodReports[iIndex].sShowTimeEnd);
-                    }
-                }
-                dbCmd.Dispose();
-                drRecordSet.Dispose();
-                SQL_SERVER.Close_Sql_Sever_Conn();
-                //CloseConn();
+                lEodReports.Add(myEodStruct);
+                Debug.WriteLine(lEodReports[iCount].sFromTime + "-" + lEodReports[iCount].sReportTime);
+                iCount++;
             }
-            catch (Exception exe) {
 
-                Debug.WriteLine("Exception :"+exe);
-            
+            for (iIndex = 0; iIndex <= 10; iIndex++)
+            {
+                if (iIndex < iCount)
+                {
+                    Display.UpdateButtonText(iIndex + 1, "REPORT TIME: " + lEodReports[iIndex].sShowTimeEnd);
+                }
             }
+            dbCmd.Dispose();
+            drRecordSet.Dispose();
+            //CloseConn();
         }
 
         public static void UpdateCashView()
         {
-            try
+            int iIndex, iCount;
+            string sQuery;
+            OleDbCommand dbCmd;
+            OleDbDataReader drRecordSet;
+            CashStruct myCashStruct;
+
+            Debug.WriteLine("UPDATE CASH VIEW");
+
+            sQuery = "SELECT REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END FROM CASSETTES_REPORT ORDER BY REPORT_TIME DESC";
+            dbCmd = new OleDbCommand(sQuery, OpenConn());
+            drRecordSet = dbCmd.ExecuteReader();
+
+            Debug.WriteLine(sQuery);
+            Debug.WriteLine(drRecordSet.HasRows);
+
+            iCount = 0;
+            lCashReports.Clear();
+            while (drRecordSet.Read())
             {
+                myCashStruct.sReportTime = drRecordSet[0].ToString();
+                myCashStruct.sFromTime = drRecordSet[1].ToString();
+                myCashStruct.sShowTimeStart = drRecordSet[2].ToString();
+                myCashStruct.sShowTimeEnd = drRecordSet[3].ToString();
 
-                int iIndex, iCount;
-                string sQuery;
-              /*  SqlCommand dbCmd;
-                SqlDataReader drRecordSet;*/
-                OleDbCommand dbCmd;
-                OleDbDataReader drRecordSet;
-                
-                SQL_SERVER.Set_Sql_Server_Conn();
-                SQL_SERVER.Open_Sql_Server_Conn();
-                CashStruct myCashStruct;
-
-                Debug.WriteLine("UPDATE CASH VIEW");
-
-                sQuery = "SELECT REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END FROM CASSETTES_REPORT ORDER BY REPORT_TIME DESC";
-                dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
-                drRecordSet = dbCmd.ExecuteReader();
-
-                Debug.WriteLine(sQuery);
-                Debug.WriteLine(drRecordSet.HasRows);
-
-
-
-                iCount = 0;
-                lCashReports.Clear();
-                while (drRecordSet.Read())
-                {
-                    myCashStruct.sReportTime = drRecordSet[0].ToString();
-                    myCashStruct.sFromTime = drRecordSet[1].ToString();
-                    myCashStruct.sShowTimeStart = drRecordSet[2].ToString();
-                    myCashStruct.sShowTimeEnd = drRecordSet[3].ToString();
-
-                    lCashReports.Add(myCashStruct);
-                    Debug.WriteLine(lCashReports[iCount].sFromTime + "-" + lCashReports[iCount].sReportTime);
-                    iCount++;
-                }
-
-                for (iIndex = 0; iIndex <= 10; iIndex++)
-                {
-                    if (iIndex < iCount)
-                    {
-                        Display.UpdateButtonText(iIndex + 1, "REPORT TIME: " + lCashReports[iIndex].sShowTimeEnd);
-                    }
-                }
-                dbCmd.Dispose();
-                drRecordSet.Dispose();
-                SQL_SERVER.Close_Sql_Sever_Conn();
-
+                lCashReports.Add(myCashStruct);
+                Debug.WriteLine(lCashReports[iCount].sFromTime + "-" + lCashReports[iCount].sReportTime);
+                iCount++;
             }
-            catch (Exception ex) {
 
-                Debug.WriteLine("CASSETTES_REPORT not read data :"+ex);
+            for (iIndex = 0; iIndex <= 10; iIndex++)
+            {
+                if (iIndex < iCount)
+                {
+                    Display.UpdateButtonText(iIndex + 1, "REPORT TIME: " + lCashReports[iIndex].sShowTimeEnd);
+                }
             }
+            dbCmd.Dispose();
+            drRecordSet.Dispose();
             //CloseConn();
         }
-       
+
         public static void UpdateCompletedTransView()
         {
             int iIndex, iCount;
             string sQuery;
             OleDbCommand dbCmd;
             OleDbDataReader drRecordSet;
-           /* SqlCommand dbCmd;
-            SqlDataReader drRecordSet;*/
             TransStruct myTransStruct;
-            
 
             Debug.WriteLine("UPDATE COMPLETE TRANSACTIONS VIEW");
 
-            SQL_SERVER.Set_Sql_Server_Conn();
-            SQL_SERVER.Open_Sql_Server_Conn();
-
-
-            //sQuery = "SELECT COMPLETED_TIME, PIC, PUMP, DEPOSIT, PURCHASE, PRICE, CHANGE, GRADE, VOLUME, SHOW_TIME, TRAN_ID FROM TRANSACTIONS ORDER BY COMPLETED_TIME DESC";
-            sQuery = "SELECT COMPLETED_TIME, PIC, PUMP, DEPOSIT, PURCHASE, PRICE, GRADE, VOLUME, SHOW_TIME, TRAN_ID,CHANGE FROM TRANSACTIONS ORDER BY COMPLETED_TIME DESC;";
-            dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery) ;
+            sQuery = "SELECT COMPLETED_TIME, PIC, PUMP, DEPOSIT, PURCHASE, PRICE, CHANGE, GRADE, VOLUME, SHOW_TIME, TRAN_ID FROM TRANSACTIONS ORDER BY COMPLETED_TIME DESC";
+            dbCmd = new OleDbCommand(sQuery, OpenConn());
             drRecordSet = dbCmd.ExecuteReader();
 
             Debug.WriteLine(sQuery);
@@ -4980,99 +4708,57 @@ namespace FPS
             lCompletedTrans.Clear();
             while (drRecordSet.Read())
             {
-                myTransStruct.sPIC = drRecordSet["PIC"].ToString();
-                myTransStruct.sPump = drRecordSet["PUMP"].ToString();
-                myTransStruct.sDeposit = drRecordSet["DEPOSIT"].ToString();
-                myTransStruct.sPurchase = drRecordSet["PURCHASE"].ToString();
-                myTransStruct.sPrice = drRecordSet["PRICE"].ToString();
-                myTransStruct.sChange = drRecordSet["CHANGE"].ToString();
-                myTransStruct.sGrade = drRecordSet["GRADE"].ToString();
-                myTransStruct.sVolume = drRecordSet["VOLUME"].ToString();
-                myTransStruct.sShowTime = drRecordSet["SHOW_TIME"].ToString();
-                myTransStruct.sTranId = drRecordSet["TRAN_ID"].ToString();
+                myTransStruct.sPIC = drRecordSet[1].ToString();
+                myTransStruct.sPump = drRecordSet[2].ToString();
+                myTransStruct.sDeposit = drRecordSet[3].ToString();
+                myTransStruct.sPurchase = drRecordSet[4].ToString();
+                myTransStruct.sPrice = drRecordSet[5].ToString();
+                myTransStruct.sChange = drRecordSet[6].ToString();
+                myTransStruct.sGrade = drRecordSet[7].ToString();
+                myTransStruct.sVolume = drRecordSet[8].ToString();
+                myTransStruct.sShowTime = drRecordSet[9].ToString();
+                myTransStruct.sTranId = drRecordSet[10].ToString();
 
-                lCompletedTrans.Add(myTransStruct); 
+                lCompletedTrans.Add(myTransStruct);
                 iCount++;
             }
 
-            if (iCount > 1)
-            {
-                Display.screen1.SetButtonVisible(Display.screen1.btPageUp, true);
-                Display.screen1.SetLabelVisible(Display.screen1.not_avail, false);
-            }
-            else {
-                Display.screen1.SetLabelVisible(Display.screen1.not_avail, true);
-                Display.screen1.SetButtonVisible(Display.screen1.btPageUp, false);
-            }
-
-            
-            for (iIndex = 0; iIndex < 7; iIndex++)
+            for (iIndex = 0; iIndex <= 10; iIndex++)
             {
                 if (iIndex < iCount)
                 {
-                    Display.UpdateButtonText(iIndex + 4, "PUMP: " + DB.lCompletedTrans[iIndex].sPump + " @ " + DB.lCompletedTrans[iIndex].sShowTime + " PAID: $" + DB.lCompletedTrans[iIndex].sDeposit + "\nCHANGE: $" + DB.lCompletedTrans[iIndex].sChange);
-                    DB.UpdateTransactionId(Form1.lbl_arr[iIndex], DB.lCompletedTrans[iIndex].sTranId);
+                    Display.UpdateButtonText(iIndex + 1, "PUMP: " + lCompletedTrans[iIndex].sPump + " @ " + lCompletedTrans[iIndex].sShowTime + "\nPAID: $" + lCompletedTrans[iIndex].sDeposit + "  CHANGE: $" + lCompletedTrans[iIndex].sChange);
                 }
-                
             }
-            
             dbCmd.Dispose();
             drRecordSet.Dispose();
-            SQL_SERVER.Close_Sql_Sever_Conn();
-        }
-
-        public static void UpdateTransactionId(Label label_id, string id)
-        {
-            if (label_id.InvokeRequired)
-            {
-               SetLabelTextCallback d = new SetLabelTextCallback(UpdateTransactionId);
-               Display.screen1.Invoke(d, new object[] { label_id, id });
-
-            }
-            else
-            {
-                label_id.Text = id;
-
-
-            }
+            CloseConn();
         }
 
         public static void GenerateEodReport()
         {
-           
+            string sQuery;
+            string sReportTime;
+            string sFromTime;
+            string sShowTimeStart;
+            string sShowTimeEnd;
+            EodStruct myEodStruct;
+            DateTime dtNow;
 
+            Debug.WriteLine("GENERATE EOD REPORT");
 
-                string sQuery;
-                string sReportTime;
-                string sFromTime;
-                string sShowTimeStart;
-                string sShowTimeEnd;
-                EodStruct myEodStruct;
-                DateTime dtNow;
+            dtNow = DateTime.Now;
+            sReportTime = dtNow.ToString("yyMMddHHmmss");
+            sShowTimeEnd = dtNow.ToString();
+            myEodStruct = GetEodStartTime();
+            sFromTime = myEodStruct.sFromTime;
+            sShowTimeStart = myEodStruct.sShowTimeStart;
 
-                OleDbCommand dbCmd;
+            sQuery = @"INSERT INTO TRANSACTIONS_REPORT (REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END) VALUES('" + sReportTime + "', '" + sFromTime + "', '" + sShowTimeStart + "', '" + sShowTimeEnd + "')";
+            Debug.WriteLine(sQuery);
+            ExecuteNonQuery(sQuery);
 
-                Debug.WriteLine("GENERATE EOD REPORT");
-
-                dtNow = DateTime.Now;
-                sReportTime = dtNow.ToString("yyMMddHHmmss");
-                sShowTimeEnd = dtNow.ToString();
-
-                myEodStruct = GetEodStartTime();
-                Debug.WriteLine("sFromTime:" + myEodStruct.sFromTime + " sShowTimeStart:" + myEodStruct.sShowTimeStart);
-                SQL_SERVER.Set_Sql_Server_Conn();
-                SQL_SERVER.Open_Sql_Server_Conn();
-
-                sQuery = @"INSERT INTO TRANSACTIONS_REPORT (REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END) VALUES('" + sReportTime + "', '" + myEodStruct.sFromTime + "', '" + myEodStruct.sShowTimeStart + "', '" + sShowTimeEnd + "')";
-                Debug.WriteLine(sQuery);
-                dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
-                dbCmd.ExecuteNonQuery();
-                SQL_SERVER.Close_Sql_Sever_Conn();
-
-                UpdateEodView();
-            
-            
-            
+            UpdateEodView();
 
             //DELETE OLD DATA TRANSACTIONS + TRANSACTION REPORT DATES
         }
@@ -5090,10 +4776,6 @@ namespace FPS
             string sEndTime;
             OleDbCommand dbCmd;
             OleDbDataReader drRecordSet;
-           /* SqlCommand dbCmd;
-            SqlDataReader drRecordSet;*/
-            SQL_SERVER.Set_Sql_Server_Conn();
-            SQL_SERVER.Open_Sql_Server_Conn();
 
             Debug.WriteLine("TRYING TO PRINT... REPORT + " + Printer.iStatus);
 
@@ -5119,8 +4801,8 @@ namespace FPS
                     for (iGrade = 1; iGrade <= 4; iGrade++)
                     {
                         sQuery = @"SELECT SUM(VOLUME) AS VOLUME_TOTAL, SUM(PURCHASE) AS PURCHASE_TOTAL FROM TRANSACTIONS WHERE GRADE LIKE '" + iGrade + "' AND COMPLETED_TIME BETWEEN '" + sReportTime + "' AND '" + sFromTime + "'";
-                        
-                        dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+
+                        dbCmd = new OleDbCommand(sQuery, OpenConn());
                         drRecordSet = dbCmd.ExecuteReader();
 
                         if (drRecordSet.HasRows)
@@ -5145,15 +4827,15 @@ namespace FPS
                             //Just for this Grade...
                             //Display.ShowMessageBox("No Transactions Found", 3);
                         }
-                        dbCmd.Dispose();
-                        drRecordSet.Dispose();
+                        //dbCmd.Dispose();
+                        //drRecordSet.Dispose();
                     }
                     sReport = sReport + (String.Format("\n{0,6}    {1,6:0.000}     {2,9:0.00}", "TOTAL:", dGradeTotal, dPurchaseTotal));
                     sReport = sReport + "\n\n";
 
                     sQuery = @"SELECT SUM(DEPOSIT) AS DEPOSIT_TOTAL, SUM(CHANGE) AS CHANGE_TOTAL FROM TRANSACTIONS WHERE COMPLETED_TIME BETWEEN '" + sReportTime + "' AND '" + sFromTime + "'";
 
-                    dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+                    dbCmd = new OleDbCommand(sQuery, OpenConn());
                     drRecordSet = dbCmd.ExecuteReader();
 
                     if (drRecordSet.HasRows)
@@ -5173,6 +4855,8 @@ namespace FPS
                     }
                     sReport = sReport + "\n\n\n\n\n\n\n\n";
 
+                    //MessageBox.Show(sReport + "");
+
                     Printer.sReceipt = sReport;
                     CenCom.bPrintRequest = true;
 
@@ -5184,7 +4868,7 @@ namespace FPS
                     //ErrorLogEvents(ex.ToString());
                 }
 
-                SQL_SERVER.Close_Sql_Sever_Conn();
+                CloseConn();
                 Debug.WriteLine(sReport);
             }
             else
@@ -5195,38 +4879,28 @@ namespace FPS
 
         public static void GenerateCashReport()
         {
-            
+            string sQuery;
+            string sReportTime;
+            string sFromTime;
+            string sShowTimeStart;
+            string sShowTimeEnd;
+            CashStruct myCashStruct;
+            DateTime dtNow;
 
-                string sQuery;
-                string sReportTime;
-                string sFromTime;
-                string sShowTimeStart;
-                string sShowTimeEnd;
-                CashStruct myCashStruct;
-                DateTime dtNow;
+            Debug.WriteLine("GENERATE CASH REPORT");
 
-                Debug.WriteLine("GENERATE CASH REPORT");
+            dtNow = DateTime.Now;
+            sReportTime = dtNow.ToString("yyMMddHHmmss");
+            sShowTimeEnd = dtNow.ToString();
+            myCashStruct = GetCashStartTime();
+            sFromTime = myCashStruct.sFromTime;
+            sShowTimeStart = myCashStruct.sShowTimeStart;
 
-                dtNow = DateTime.Now;
-                sReportTime = dtNow.ToString("yyMMddHHmmss");
-                sShowTimeEnd = dtNow.ToString();
-                myCashStruct = GetCashStartTime();
-                sFromTime = myCashStruct.sFromTime;
-                sShowTimeStart = myCashStruct.sShowTimeStart;
+            sQuery = @"INSERT INTO CASSETTES_REPORT (REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END) VALUES('" + sReportTime + "', '" + sFromTime + "', '" + sShowTimeStart + "', '" + sShowTimeEnd + "')";
+            Debug.WriteLine(sQuery);
+            ExecuteNonQuery(sQuery);
 
-                OleDbCommand cmd;
-                SQL_SERVER.Set_Sql_Server_Conn();
-                SQL_SERVER.Open_Sql_Server_Conn();
-
-                sQuery = @"INSERT INTO CASSETTES_REPORT (REPORT_TIME, FROM_TIME, SHOW_TIME_START, SHOW_TIME_END) VALUES('" + sReportTime + "', '" + sFromTime + "', '" + sShowTimeStart + "', '" + sShowTimeEnd + "')";
-                Debug.WriteLine(sQuery);
-                cmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
-                cmd.ExecuteNonQuery();
-
-                SQL_SERVER.Close_Sql_Sever_Conn();
-                UpdateCashView();
-            
-            
+            UpdateCashView();
 
             //DELETE OLD DATA IN BOTH CASSETTES AND CASSSETTES_REPORT
         }
@@ -5241,20 +4915,12 @@ namespace FPS
             string sFromTime;
             string sStartTime;
             string sEndTime;
-
             OleDbCommand dbCmd;
             OleDbDataReader drRecordSet;
 
-            SQL_SERVER.Set_Sql_Server_Conn();
-            SQL_SERVER.Open_Sql_Server_Conn();
-
-           /* SqlCommand dbCmd;
-            SqlDataReader drRecordSet;*/
-
-
             Debug.WriteLine("TRYING TO PRINT... REPORT + " + Printer.iStatus);
 
-            if ( Printer.iStatus == 1)
+            if (Printer.iStatus == 1)
             {
                 sReport = "";
                 sReportTime = lCashReports[iPassIndex].sReportTime;
@@ -5268,7 +4934,7 @@ namespace FPS
                 {
                     sQuery = @"SELECT PIC, BILLS, TOTAL, SHOW_TIME FROM CASSETTES WHERE PULLED_TIME BETWEEN '" + sReportTime + "' AND '" + sFromTime + "'";
                     Debug.WriteLine(sQuery);
-                    dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+                    dbCmd = new OleDbCommand(sQuery, OpenConn());
                     drRecordSet = dbCmd.ExecuteReader();
 
                     if (drRecordSet.HasRows)
@@ -5332,16 +4998,12 @@ namespace FPS
             string sStartTime;
             OleDbCommand dbCmd;
             OleDbDataReader drRecordSet;
-           /* SqlCommand dbCmd;
-            SqlDataReader drRecordSet;*/
-            SQL_SERVER.Set_Sql_Server_Conn();
-            SQL_SERVER.Open_Sql_Server_Conn();
             CashStruct myCashStruct = new CashStruct();
 
             try
             {
                 sQuery = "SELECT * FROM CASSETTES_REPORT";
-                dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+                dbCmd = new OleDbCommand(sQuery, OpenConn());
                 drRecordSet = dbCmd.ExecuteReader();
 
                 if (drRecordSet.HasRows)
@@ -5349,7 +5011,7 @@ namespace FPS
                     Debug.WriteLine("HAS ROWS");
 
                     sQuery = "SELECT REPORT_TIME, SHOW_TIME_END FROM CASSETTES_REPORT ORDER BY REPORT_TIME DESC";
-                    dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+                    dbCmd = new OleDbCommand(sQuery, OpenConn());
                     drRecordSet = dbCmd.ExecuteReader();
 
                     Debug.WriteLine(drRecordSet.HasRows);
@@ -5372,7 +5034,7 @@ namespace FPS
                     Debug.WriteLine("NO ROWS");
 
                     sQuery = "SELECT PULLED_TIME, SHOW_TIME FROM CASSETTES ORDER BY PULLED_TIME";
-                    dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+                    dbCmd = new OleDbCommand(sQuery, OpenConn());
                     drRecordSet = dbCmd.ExecuteReader();
 
                     Debug.WriteLine(drRecordSet.HasRows);
@@ -5394,24 +5056,23 @@ namespace FPS
                     else
                     {
                         myCashStruct.sFromTime = DateTime.Now.ToString("yyMMddHHmmss");
-                        myCashStruct.sShowTimeStart = DateTime.Now.ToString("yyMMddHHmmss");
+                        myCashStruct.sShowTimeStart = DateTime.Now.ToString();
                     }
                     //dbCmd.Dispose();
                     //drRecordSet.Dispose();
                 }
                 dbCmd.Dispose();
                 drRecordSet.Dispose();
-                
             }
             catch (Exception ex)
             {
                 myCashStruct.sFromTime = DateTime.Now.ToString("yyMMddHHmmss");
-                myCashStruct.sShowTimeStart = DateTime.Now.ToString("yyMMddHHmmss");
+                myCashStruct.sShowTimeStart = DateTime.Now.ToString();
                 //ErrorLogEvents(ex.ToString());
             }
-            
+
             //CloseConn();
-            SQL_SERVER.Close_Sql_Sever_Conn();
+
             myCashStruct.sReportTime = "";
             myCashStruct.sShowTimeEnd = "";
             return myCashStruct;
@@ -5424,24 +5085,19 @@ namespace FPS
             OleDbCommand dbCmd;
             OleDbDataReader drRecordSet;
             EodStruct myEodStruct = new EodStruct();
-                            SQL_SERVER.Set_Sql_Server_Conn();
-                SQL_SERVER.Open_Sql_Server_Conn();
 
             try
             {
-
-                sQuery = "SELECT REPORT_TIME, SHOW_TIME_END FROM TRANSACTIONS_REPORT ORDER BY REPORT_TIME DESC";
-             
-                dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
-
+                sQuery = "SELECT * FROM TRANSACTIONS_REPORT";
+                dbCmd = new OleDbCommand(sQuery, OpenConn());
                 drRecordSet = dbCmd.ExecuteReader();
 
                 if (drRecordSet.HasRows)
                 {
                     Debug.WriteLine("HAS ROWS");
 
-                   sQuery = "SELECT REPORT_TIME, SHOW_TIME_END FROM TRANSACTIONS_REPORT ORDER BY REPORT_TIME DESC";
-                    dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+                    sQuery = "SELECT REPORT_TIME, SHOW_TIME_END FROM TRANSACTIONS_REPORT ORDER BY REPORT_TIME DESC";
+                    dbCmd = new OleDbCommand(sQuery, OpenConn());
                     drRecordSet = dbCmd.ExecuteReader();
 
                     Debug.WriteLine(drRecordSet.HasRows);
@@ -5458,7 +5114,7 @@ namespace FPS
                     Debug.WriteLine("NO ROWS");
 
                     sQuery = "SELECT COMPLETED_TIME, SHOW_TIME FROM TRANSACTIONS ORDER BY COMPLETED_TIME";
-                    dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
+                    dbCmd = new OleDbCommand(sQuery, OpenConn());
                     drRecordSet = dbCmd.ExecuteReader();
 
                     Debug.WriteLine(drRecordSet.HasRows);
@@ -5491,109 +5147,57 @@ namespace FPS
             return myEodStruct;
         }
 
-
-
-        public static void PrintReceipt(string trnasc_id)
+        public static void PrintReceipt(int iPassIndex)
         {
             Debug.WriteLine("TRYING TO PRINT... STATUS + " + Printer.iStatus);
 
             if (Printer.iStatus == 1)
             {
-                string sPIC = "";
-                string sPump = "";
-                string sGrade = "";
-                string sVolume = "";
-                string sPurchase = "";
-                string sPrice = "";
-                string sDeposit = "";
-                string sChange = "";
-                string sShowTime = "";
-                string sTranId = "";
                 string sReceipt = "";
+                string sPIC = lCompletedTrans[iPassIndex].sPIC;
+                string sPump = lCompletedTrans[iPassIndex].sPump;
+                string sGrade = lCompletedTrans[iPassIndex].sGrade;
+                string sVolume = lCompletedTrans[iPassIndex].sVolume;
+                string sPurchase = lCompletedTrans[iPassIndex].sPurchase;
+                string sPrice = lCompletedTrans[iPassIndex].sPrice;
+                string sDeposit = lCompletedTrans[iPassIndex].sDeposit;
+                string sChange = lCompletedTrans[iPassIndex].sChange;
+                string sShowTime = lCompletedTrans[iPassIndex].sShowTime;
+                string sTranId = lCompletedTrans[iPassIndex].sTranId;
 
-                OleDbCommand dbCmd;
-                OleDbDataReader drRecordSet;
+                sReceipt = sReceipt + Printer.sHeader;
+                sReceipt = sReceipt + "\n\n\n";
 
+                sReceipt = sReceipt + "Pump: " + sPump + "\n";
+                sReceipt = sReceipt + "Terminal: " + sPIC + "\n\n";
 
-                SQL_SERVER.Set_Sql_Server_Conn();
-                SQL_SERVER.Open_Sql_Server_Conn();
+                sReceipt = sReceipt + "Descr.           qty               amount" + "\n";
+                sReceipt = sReceipt + "------           ---               ------" + "\n";
+                sReceipt = sReceipt + sGrade + "               " + sVolume + "               " + sPurchase + "\n";
+                sReceipt = sReceipt + "                @ " + sPrice + "/G" + "\n";
+                sReceipt = sReceipt + "                Prepay Fuel        -" + sDeposit + ".00" + "\n";
+                sReceipt = sReceipt + "                                 --------" + "\n";
+                sReceipt = sReceipt + "                    Subtotal        -" + sChange + "\n";
+                sReceipt = sReceipt + "                         Tax         0.00" + "\n";
+                sReceipt = sReceipt + "                       TOTAL        -" + sChange + "\n";
+                sReceipt = sReceipt + "                        CASH        -" + sChange + "\n\n";
 
+                sReceipt = sReceipt + "TRAN# " + sTranId + "\n";
+                sReceipt = sReceipt + sShowTime + "\n\n";
+                sReceipt = sReceipt + Printer.sFooter + "\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
-                //sQuery = "SELECT COMPLETED_TIME, PIC, PUMP, DEPOSIT, PURCHASE, PRICE, CHANGE, GRADE, VOLUME, SHOW_TIME, TRAN_ID FROM TRANSACTIONS ORDER BY COMPLETED_TIME DESC";
+                Printer.sReceipt = sReceipt;
+                CenCom.bPrintRequest = true;
 
-                string sQuery = "SELECT COMPLETED_TIME, PIC, PUMP, DEPOSIT, PURCHASE, PRICE, GRADE, VOLUME, SHOW_TIME, TRAN_ID,CHANGE FROM TRANSACTIONS WHERE TRAN_ID LIKE '%" + trnasc_id + "%' ORDER BY COMPLETED_TIME DESC;";
-                dbCmd = SQL_SERVER.Set_Sql_Server_Cmd(sQuery);
-
-                drRecordSet = dbCmd.ExecuteReader();
-
-                Debug.WriteLine(sQuery);
-                Debug.WriteLine(drRecordSet.HasRows);
-
-
-                if (drRecordSet.HasRows)
-                {
-
-
-                    while (drRecordSet.Read())
-                    {
-
-                        sPIC = drRecordSet["PIC"].ToString();
-                        sPump = drRecordSet["PUMP"].ToString();
-                        sGrade = drRecordSet["GRADE"].ToString();
-                        sVolume = drRecordSet["VOLUME"].ToString();
-                        sPurchase = drRecordSet["PURCHASE"].ToString();
-                        sPrice = drRecordSet["PRICE"].ToString();
-                        sDeposit = drRecordSet["DEPOSIT"].ToString();
-                        sChange = drRecordSet["CHANGE"].ToString();
-                        sShowTime = drRecordSet["SHOW_TIME"].ToString();
-                        sTranId = drRecordSet["TRAN_ID"].ToString();
-
-                    }
-
-
-
-
-
-                    sReceipt = sReceipt + Printer.sHeader;
-                    sReceipt = sReceipt + "\n\n\n";
-
-                    sReceipt = sReceipt + "Pump: " + sPump + "\n";
-                    sReceipt = sReceipt + "Terminal: " + sPIC + "\n\n";
-
-                    sReceipt = sReceipt + "Descr.           qty               amount" + "\n";
-                    sReceipt = sReceipt + "------           ---               ------" + "\n";
-                    sReceipt = sReceipt + sGrade + "               " + sVolume + "               " + sPurchase + "\n";
-                    sReceipt = sReceipt + "                @ " + sPrice + "/G" + "\n";
-                    sReceipt = sReceipt + "                Prepay Fuel        -" + sDeposit + ".00" + "\n";
-                    sReceipt = sReceipt + "                                 --------" + "\n";
-                    sReceipt = sReceipt + "                    Subtotal        -" + sChange + "\n";
-                    sReceipt = sReceipt + "                         Tax         0.00" + "\n";
-                    sReceipt = sReceipt + "                       TOTAL        -" + sChange + "\n";
-                    sReceipt = sReceipt + "                        CASH        -" + sChange + "\n\n";
-
-                    sReceipt = sReceipt + "TRAN# " + sTranId + "\n";
-                    sReceipt = sReceipt + sShowTime + "\n\n";
-                    sReceipt = sReceipt + Printer.sFooter + "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-
-                    Printer.sReceipt = sReceipt;
-                    CenCom.bPrintRequest = true;
-
-                    Debug.WriteLine(sReceipt);
-
-                    //MessageBox.Show(sReceipt + "");
-
-                    dbCmd.Dispose();
-                    drRecordSet.Dispose();
-                    SQL_SERVER.Close_Sql_Sever_Conn();
-                }
-
-
+                Debug.WriteLine(sReceipt);
             }
             else
             {
                 Display.ShowMessageBox("Printer Offline", 3);
             }
         }
+
+
     }
 
     public static class Crc
@@ -5660,72 +5264,4 @@ namespace FPS
         }
     }//CRC
 
-}
-
-
-public class SQL_SERVER
-{
-
-    public static OleDbConnection sql_con;
-    public static OleDbCommand sql_cmd;
-    public static OleDbDataReader dbr;
-
-    public static string server_string = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:/DB/MainDB.mdb;Mode=Read|Write";
-    public static void Set_Sql_Server_Conn()
-    {
-
-
-        sql_con = new OleDbConnection(server_string);
-    }
-
-    public static void Open_Sql_Server_Conn()
-    {
-
-        if (sql_con.State == System.Data.ConnectionState.Closed) { 
-            sql_con.Open();
-        }
-        
-    }
-
-    
-
-    public static void Close_Sql_Sever_Conn()
-    {
-        if (sql_con.State == System.Data.ConnectionState.Open)
-        {
-            sql_con.Close();
-        }
-        //sql_con.Close();
-    }
-
-    public static OleDbCommand Set_Sql_Server_Cmd(string Cmd_str)
-    {
-
-        return new OleDbCommand(Cmd_str, sql_con);
-    }
-
-    public static void ExecuteNonQuery(string sPassQuery)
-    {
-        try
-        {
-            OleDbCommand cmd = new OleDbCommand(sPassQuery, sql_con);
-            //cmd.CommandText = sPassQuery;
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            //ErrorLogEvents(ex.ToString());
-        }
-        //CloseConn();
-    }
-
-
-    internal static OleDbConnection Return_Conn()
-    {
-        
-        sql_con = new OleDbConnection(server_string);
-        return sql_con;
-    }
 }
